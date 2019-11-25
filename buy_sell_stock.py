@@ -6,10 +6,10 @@
 #You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
 #After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)
 
-def maxProfit(prices: List[int]) -> int:
+def maxProfit(prices) -> int:
     #case1 
     #we can have a stock
-    #results from either selling or doing nothing
+    #results from either buying or doing nothing
     #case 2 we can have no stock
     # 
     #case 3 we can be in cooldown
