@@ -9,9 +9,7 @@ def maxIncreaseKeepingSkyline(grid) -> int:
     #get max height allowed for each column in the grid
     max_col_heights = []
     for i in range(len(grid[0])):
-        col = []
-        for j in range(len(grid)):
-            col.append(grid[j][i])
+        col = [row[i] for row in grid]
         max_col_heights.append(max(col))
     total_increase = 0
     for i in range(len(grid)):
