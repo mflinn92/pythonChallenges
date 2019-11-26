@@ -2,15 +2,14 @@ import unittest
 
 def maxIncreaseKeepingSkyline(grid) -> int:
     # get max height allowed for each row in the grid
-    max_row_heights = []
-    for row in grid:
-        max_row_heights.append(max(row))
+    max_row_heights = [max(row) for row in grid]
     
     #get max height allowed for each column in the grid
-    max_col_heights = []
+    cols = []
     for i in range(len(grid[0])):
-        col = [row[i] for row in grid]
-        max_col_heights.append(max(col))
+        cols.append([row[i] for row in grid])
+    max_col_heights = [max(col) for col in cols]
+
     total_increase = 0
     for i in range(len(grid)):
         for j in range(len(grid[0])):
