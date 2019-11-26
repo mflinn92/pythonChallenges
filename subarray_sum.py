@@ -5,7 +5,7 @@ def subarray_sum(nums, target):
     result = 0
     map = {}
     map[0] = 1
-    for i, num in enumerate(nums):
+    for num in nums:
         current_sum += num
         if current_sum - target in map:
             result += map[current_sum - target]
