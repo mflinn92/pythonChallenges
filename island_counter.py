@@ -1,6 +1,5 @@
 import unittest
 
-
 def islandCounter(grid):
     #iterate through grid until island is found
     num_islands = 0
@@ -27,6 +26,7 @@ def islandCounter(grid):
                         stack.append((curr_row, curr_col + 1))
     return num_islands
 
+#### Unit Tests ########
 class TestIslandCount(unittest.TestCase):
     def test_single_island(self):
         test_grid = [["1","1","1","1","0"],
@@ -49,4 +49,3 @@ class TestIslandCount(unittest.TestCase):
         self.assertEqual(islandCounter(test_grid), 4)
 if __name__ == '__main__':
     unittest.main()
-
