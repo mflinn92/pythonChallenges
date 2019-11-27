@@ -39,6 +39,7 @@ class SearchTest (unittest.TestCase):
             [10,13,14,17,24],
             [18,21,23,26,30]
         ]
+        self.assertEqual(search_matrix(test_grid, 20), False)
     def test_empty_grid(self):
         test_grid = []
         self.assertEqual(search_matrix(test_grid, 23), False)
@@ -46,6 +47,6 @@ class SearchTest (unittest.TestCase):
     def test_empty_rows(self):
         test_grid = [[], [], []]
         self.assertEqual(search_matrix(test_grid, 6), False)
-        
+
 if __name__ == "__main__":
     unittest.main()
