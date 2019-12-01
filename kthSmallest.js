@@ -11,7 +11,7 @@ const TreeNode = function(val) {
  * @param {number} k
  * @return {number}
  */
-const kthSmallest = (root, k) => {
+const kthSmallestNaive = (root, k) => {
   // Build array from contents of BST using in order traversal
   const traversal = [];
   // Helper function to perform in order traversal
@@ -28,6 +28,29 @@ const kthSmallest = (root, k) => {
   traverse(root);
   return traversal[k-1];
 }
+//Does not require storing entire tree contents if tree is very large
+const kthSmallest = (root, k) => {
+  let count = 0;
+  let stack = [];
+  while (count < k) {
+    if (root) {
+      stack.push(root);
+      root = root.left;
+    } else {
+      if (stack) {
+        root = stack.pop();
+        count++;
+        if (count === k) {
+          break
+        }
+        root = root.right;
+      } else {
+        break;
+      }
+    }
+  }
+  return root.val;
+}
 
 const test = () => {
   let root = new TreeNode(3);
@@ -37,7 +60,7 @@ const test = () => {
   branch1.right = leaf1;
   let branch2 = new TreeNode(4);
   root.right = branch2;
-  console.log(kthSmallest(root, 1) == 1);
+  console.log(kthSmallest(root, 1));
 
 }
 test();
