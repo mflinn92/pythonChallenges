@@ -16,6 +16,7 @@ class LRUCache:
         self.head.next = self.tail
         self.tail.prev = self.head
         
+        
     def get(self, key: int) -> int:
         # retrieve key value from storage
         if key not in self.storage:
@@ -39,13 +40,16 @@ class LRUCache:
             self._append(node)
             self.storage[key] = node
             if len(self.storage) > self.capacity:
-                last_key = self.head.storage_key
+                last_key = self.head.next.storage_key
                 self.storage.pop(last_key)
-                self._remove(self.head)        
+                self._remove(self.head.next)        
             
     def _append(self, node):
         temp = self.tail.prev
         node.next = self.tail
+        node.prev = temp
+        temp.next = node
+        self.tail.prev = node
         
             
     def _remove(self, node):
