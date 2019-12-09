@@ -8,15 +8,33 @@ class Node:
         self.prev = None
 
 
+class DoubleLinkedList:
+    
+    def __init__(self):
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    
+    def append(self, node):
+        temp = self.tail.prev
+        temp.next = node
+        node.prev = temp
+        node.next = self.tail
+        self.tail.prev = node
+
+    def pop_node(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        return node
+
 class LRUCache:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.storage = {}
-        self.head = Node()
-        self.tail = Node()
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.usage_list = DoubleLinkedList()
+        self.size = 0
         
         
     def get(self, key: int) -> int:
@@ -26,34 +44,22 @@ class LRUCache:
         node = self.storage[key]
         # extract value from node
         # remove node from current position in dll
-        self._remove(node)
+        self.usage_list.pop_node(node)
         # append it to end of dll in most recently used postion
-        self._append(node)
+        self.usage_list.append(node)
         return node.val
 
     def put(self, key: int, value: int) -> None:
         # create node of value
         if key in self.storage:
             self.storage[key].val = value
-            self._remove(self.storage[key])
-            self._append(self.storage[key])
+            self.usage_list.pop_node(self.storage[key])
+            self.usage_list.pop_node(self.storage[key])
         else:
             node = Node(value, key)
-            self._append(node)
+            self.usage_list.append(node)
             self.storage[key] = node
             if len(self.storage) > self.capacity:
-                last_key = self.head.next.storage_key
+                last_key = self.usage_list.head.next.storage_key
                 self.storage.pop(last_key)
-                self._remove(self.head.next)        
-            
-    def _append(self, node):
-        temp = self.tail.prev
-        node.next = self.tail
-        node.prev = temp
-        temp.next = node
-        self.tail.prev = node
-        
-            
-    def _remove(self, node):
-        node.prev.next = node.next
-        node.next.prev = node.prev
+                self.usage_list.pop_node(self.usage_list.head.next)        
