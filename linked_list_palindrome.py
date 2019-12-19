@@ -60,16 +60,16 @@ class LinkedList:
 class Test(unittest.TestCase):
     def test_is_palindrome(self):
         test_list = LinkedList()
-        for i in range(10):
+        for i in range(10000):
             test_list.prepend(i)
-        for i in reversed(range(10)):
+        for i in reversed(range(10000)):
             test_list.prepend(i)
         self.assertEqual(test_list.isPalindrome(), True)
         self.assertEqual(test_list.isPalindrome_space_efficient(), True)
     
     def test_is_not_palindrome(self):
         test_list = LinkedList()
-        for i in range(10):
+        for i in range(10000):
             test_list.prepend(i)
         self.assertEqual(test_list.isPalindrome(), False)
         self.assertEqual(test_list.isPalindrome_space_efficient(), False)
